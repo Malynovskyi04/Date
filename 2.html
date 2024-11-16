@@ -115,6 +115,10 @@
     <button class="button" id="noButton">Нет</button>
     <button class="button" id="sickButton">Я заболела</button>
     <button class="button" id="examButton">У меня экзамены</button>
+    <button class="button" id="examButton">Я занята</button>
+    <button class="button" id="examButton">Кушаю пельмени</button>
+    <button class="button" id="examButton">Смотрю холостяка</button>
+
   </div>
 
   <!-- Квадрат для выбора даты и времени -->
