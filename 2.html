@@ -28,8 +28,8 @@
     }
 
     .container {
-      width: 350px;
-      height: 350px;
+      width: 550px;
+      height: 550px;
       text-align: center;
       padding: 30px;
       border: 3px solid #fff;
@@ -108,7 +108,7 @@
     <button class="button" id="pelmeniButton">Кушаю пельмени</button>
     <button class="button" id="holostyakButton">Смотрю холостяка</button>
   </div>
-       
+
   <div class="container hidden" id="formBox">
     <p>Выбирай дату и время:</p>
     <label for="date">Дата:</label>
@@ -117,6 +117,12 @@
     <input type="time" id="time"><br><br>
     <button class="button" id="sendButton">Отправить</button>
   </div>
+
+
+  
+    <div class="container hidden" id="formBox">
+        <button class="button" id="busyButton">Отправить</button>
+    </div>
 
   <script>
     const inviteBox = document.getElementById("inviteBox");
