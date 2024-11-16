@@ -113,8 +113,8 @@
     <p>Мы идем на свидание?</p>
     <button class="button" id="yesButton">Да</button>
     <button class="button" id="noButton">Нет</button>
-    <!-- <button class="button" id="sickButton">Я заболела</button>-->
-   <!--  <button class="button" id="examButton">У меня экзамены</button>--> 
+    <button class="button" id="sickButton">Я заболела</button>
+    <button class="button" id="examButton">У меня экзамены</button>
   </div>
 
   <!-- Квадрат для выбора даты и времени -->
@@ -136,6 +136,106 @@
     const inviteBox = document.getElementById("inviteBox");
     const formBox = document.getElementById("formBox");
     const sendButton = document.getElementById("sendButton");
+
+    // Максимальное количество объектов на экране
+    const maxSnowflakes = 40;
+    const maxHearts = 25;
+
+    // Массивы для отслеживания текущих снежинок и сердечек
+    let snowflakes = [];
+    let hearts = [];
+
+    // Функция для добавления падающих сердечек
+    function startHearts() {
+      const heartSymbol = "💜";  // Используем только фиолетовое сердечко
+      setInterval(() => {
+        if (hearts.length >= maxHearts) {
+          // Удаляем первое сердечко, если их слишком много
+          const firstHeart = hearts.shift();
+          firstHeart.remove();
+        }
+
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = heartSymbol;
+        heart.style.left = `${Math.random() * 100}vw`; // Случайная позиция по горизонтали
+        heart.style.animationDuration = `5s`; // Увеличиваем время анимации
+        heart.style.fontSize = `${Math.random() * 10 + 20}px`; // Разнообразие в размере сердечек
+        heart.style.opacity = Math.random() * 0.5 + 0.3; // Разная прозрачность
+        document.body.appendChild(heart);
+
+        hearts.push(heart); // Добавляем в массив
+
+        // Удаляем сердечко после анимации
+        heart.addEventListener("animationend", () => {
+          heart.remove();
+        });
+      }, 100); // Интервал создания сердечек
+    }
+        /* Я просто решил попробовать
+    // Функция для добавления падающих снежинок
+      function startSnowflakes() { 
+      const snowflakeSymbols = ["❄", "❅", "❆"];
+      setInterval(() => {
+        if (snowflakes.length >= maxSnowflakes) {
+          // Удаляем первую снежинку, если их слишком много
+          const firstSnowflake = snowflakes.shift();
+          firstSnowflake.remove();
+        }
+            
+        const snowflake = document.createElement("div"); 
+        snowflake.classList.add("snowflake");
+        snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+        snowflake.style.left = `${Math.random() * 100}vw`; // Случайная позиция по горизонтали
+        snowflake.style.animationDuration = `5s`; // Увеличиваем время анимации
+        snowflake.style.fontSize = `${Math.random() * 10 + 20}px`; // Разнообразие в размере снежинок
+        snowflake.style.opacity = Math.random() * 0.5 + 0.3; // Разная прозрачность
+        document.body.appendChild(snowflake);
+
+        snowflakes.push(snowflake); // Добавляем в массив
+
+        // Удаляем снежинку после анимации
+        snowflake.addEventListener("animationend", () => {
+          snowflake.remove();
+        });
+      }, 100); // Интервал создания снежинок
+    }
+      */
+
+        // тут много снежинок )))
+      function startSnowflakes() {
+      const snowflakeSymbols = ["❄", "❅", "❆"];
+      setInterval(() => {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+        snowflake.style.left = `${Math.random() * 100}vw`; // Случайная позиция по горизонтали
+        snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // Рандомная скорость падения
+        snowflake.style.fontSize = `${Math.random() * 10 + 20}px`; // Разнообразие в размере снежинок
+        snowflake.style.opacity = Math.random() * 0.5 + 0.3; // Разная прозрачность
+        document.body.appendChild(snowflake);
+
+
+           // тут я добавил фунцию удаление от ебаной шлюхи 
+
+
+          snowflake.addEventListener("animationend", () =>
+           {
+          snowflake.remove();
+          });
+            }, 100); // Интервал создания снежинок
+            /*
+        // Удаляем снежинку после анимации
+        snowflake.addEventListener("animationend", () =>
+         {
+          snowflake.remove();
+         });
+      }, 100); // Интервал создания снежинок
+      */
+    }
+
+
+
 
     // Функция для убегания кнопки от курсора
     function makeButtonMove(button) {
@@ -161,63 +261,29 @@
 
     // Обработка нажатия на "Да" и запуск анимаций
     yesButton.addEventListener("click", () => {
-      inviteBox.classList.add("hidden");   // Скрываем первоначальный блок
-      formBox.classList.remove("hidden"); // Показываем блок с формой
-      startHearts(); // Запускаем падение сердечек
-      startSnowflakes(); // Запускаем падение снежинок
+      inviteBox.classList.add("hidden");
+      formBox.classList.remove("hidden");
+      startHearts(); // Запуск анимации с сердечками
+      startSnowflakes(); // Запуск анимации со снежинками
     });
 
-    // Обработка нажатия на "Я заболела"
+    // Обработка нажатия на другие кнопки (они скрывают блок с выбором)
+    noButton.addEventListener("click", () => {
+      inviteBox.classList.add("hidden");
+      alert("Жаль, но я понял.");
+    });
+
     sickButton.addEventListener("click", () => {
-      alert("Желаю скорейшего выздоровления!");
+      inviteBox.classList.add("hidden");
+      alert("Береги здоровье!");
     });
 
-    // Обработка нажатия на "У меня экзамены"
     examButton.addEventListener("click", () => {
-      alert("Желаю удачи на экзаменах!");
+      inviteBox.classList.add("hidden");
+      alert("Удачи на экзаменах!");
     });
 
-    // Функция для добавления падающих сердечек
-    function startHearts() {
-      const heartSymbol = "💜";  // Используем только фиолетовое сердечко
-      setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.textContent = heartSymbol;
-        heart.style.left = `${Math.random() * 100}vw`; // Случайная позиция по горизонтали
-        heart.style.animationDuration = `${Math.random() * 3 + 2}s`; // Рандомная скорость падения
-        heart.style.fontSize = `${Math.random() * 10 + 20}px`; // Разнообразие в размере сердечек
-        heart.style.opacity = Math.random() * 0.5 + 0.3; // Разная прозрачность
-        document.body.appendChild(heart);
-
-        // Удаляем сердечко после анимации
-        heart.addEventListener("animationend", () => {
-          heart.remove();
-        });
-      }, 100); // Интервал создания сердечек
-    }
-
-    // Функция для добавления падающих снежинок
-    function startSnowflakes() {
-      const snowflakeSymbols = ["❄", "❅", "❆"];
-      setInterval(() => {
-        const snowflake = document.createElement("div");
-        snowflake.classList.add("snowflake");
-        snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
-        snowflake.style.left = `${Math.random() * 100}vw`; // Случайная позиция по горизонтали
-        snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // Рандомная скорость падения
-        snowflake.style.fontSize = `${Math.random() * 10 + 20}px`; // Разнообразие в размере снежинок
-        snowflake.style.opacity = Math.random() * 0.5 + 0.3; // Разная прозрачность
-        document.body.appendChild(snowflake);
-
-        // Удаляем снежинку после анимации
-        snowflake.addEventListener("animationend", () => {
-          snowflake.remove();
-        });
-      }, 100); // Интервал создания снежинок
-    }
-
-    // Отправка данных формы на email
+    // Обработка отправки письма через Gmail
     sendButton.addEventListener("click", () => {
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
@@ -227,10 +293,14 @@
         return;
       }
 
-      const email = "kiril20112004@gmail.com";
-      const subject = "Запрос на свидание";
-      const body = `Выбрана дата свидания: ${date}, время: ${time}`;
-      const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const email = "kiril20112004@gmail.com"; // Ваш адрес почты
+      const subject = "Запрос на свидание"; // Тема письма
+      const body = `Выбрана дата свидания: ${date}, время: ${time}`; // Тело письма
+
+      // Формируем ссылку для отправки письма через Gmail
+      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Открытие Gmail для отправки письма
       window.location.href = mailtoLink;
     });
   </script>
