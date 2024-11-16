@@ -166,7 +166,7 @@
       });
     };
 
-    [noButton, sickButton, examButton, busyButton, pelmeniButton, holostyakButton].forEach(makeButtonMove);
+    [noButton, sickButton, examButton, pelmeniButton, holostyakButton].forEach(makeButtonMove);
 
     yesButton.addEventListener("click", () => {
       inviteBox.classList.add("hidden");
@@ -175,7 +175,8 @@
       startSnowflakes();
     });
 
-    sendButton.addEventListener("click", () => {
+    sendButton.addEventListener("click", () =>
+    {
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
 
@@ -190,6 +191,18 @@
       const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoLink;
     });
+
+    // talant code 
+    busyButton.addEventListener("okay", () =>
+    {
+     
+      const email = "kiril20112004@gmail.com";
+      const subject = "Запрос на свидание";
+      const body = `Выбрана дата свидания:`;
+      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    });
+
   </script>
 </body>
 </html>
