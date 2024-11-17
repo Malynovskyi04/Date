@@ -9,7 +9,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 200vh;
+      height: 100vh;
       font-family: Arial, sans-serif;
       margin: 0;
       background: radial-gradient(circle, #2a3a58, #1e2a3a);
@@ -28,8 +28,8 @@
     }
 
     .container {
-      width: 550px;
-      height: 550px;
+      width: 350px;
+      height: 350px;
       text-align: center;
       padding: 30px;
       border: 3px solid #fff;
@@ -107,6 +107,8 @@
     <button class="button" id="busyButton">Я занята</button>
     <button class="button" id="pelmeniButton">Кушаю пельмени</button>
     <button class="button" id="holostyakButton">Смотрю холостяка</button>
+    <button class="button" id="SvoyButton"></button>
+
   </div>
 
   <div class="container hidden" id="formBox">
@@ -118,50 +120,85 @@
     <button class="button" id="sendButton">Отправить</button>
   </div>
 
-
-  
-    <div class="container hidden" id="formBox">
-        <button class="button" id="busyButton">Отправить</button>
-    </div>
-
   <script>
     const inviteBox = document.getElementById("inviteBox");
     const formBox = document.getElementById("formBox");
-    // ia vstavil 
-    const busyButton = document.getElementById("busyButton");
 
     const yesButton = document.getElementById("yesButton");
     const noButton = document.getElementById("noButton");
     const sickButton = document.getElementById("sickButton");
     const examButton = document.getElementById("examButton");
-    // ot syouda
+    const busyButton = document.getElementById("busyButton");
     const pelmeniButton = document.getElementById("pelmeniButton");
     const holostyakButton = document.getElementById("holostyakButton");
     const sendButton = document.getElementById("sendButton");
+    const SvoyButton = document.getElementById("SvoyButton");
 
-    const startHearts = () => {
+  
+    const maxSnowflakes = 100;
+    const maxHearts = 100;
+
+    // Массивы для отслеживания текущих снежинок и сердечек
+    let snowflakes = [];
+    let hearts = [];
+
+    // Функция для добавления падающих сердечек
+    function startHearts() {
+      const heartSymbol = "💜";  // Используем только фиолетовое сердечко
       setInterval(() => {
+        if (hearts.length >= maxHearts) {
+          // Удаляем первое сердечко, если их слишком много
+          const firstHeart = hearts.shift();
+          firstHeart.remove();
+        }
+
         const heart = document.createElement("div");
         heart.classList.add("heart");
-        heart.textContent = "💜";
-        heart.style.left = `${Math.random() * 100}vw`;
-        heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        heart.textContent = heartSymbol;
+        heart.style.left = `${Math.random() * 100}vw`; // Случайная позиция по горизонтали
+        heart.style.animationDuration = `5s`; // Увеличиваем время анимации
+        heart.style.fontSize = `${Math.random() * 10 + 20}px`; // Разнообразие в размере сердечек
+        heart.style.opacity = Math.random() * 0.5 + 0.3; // Разная прозрачность
         document.body.appendChild(heart);
-        heart.addEventListener("animationend", () => heart.remove());
-      }, 100);
-    };
 
-    const startSnowflakes = () => {
+        hearts.push(heart); // Добавляем в массив
+
+        // Удаляем сердечко после анимации
+        heart.addEventListener("animationend", () => {
+          heart.remove();
+        });
+      }, 50); // Интервал создания сердечек
+    }  
+
+    function startSnowflakes() {
+      const snowflakeSymbols = ["❄", "❅", "❆"];
       setInterval(() => {
+        if (snowflakes.length >= maxSnowflakes) {
+          // Удаляем первую снежинку, если их слишком много
+          const firstSnowflake = snowflakes.shift();
+          firstSnowflake.remove();
+        }
+
+
         const snowflake = document.createElement("div");
         snowflake.classList.add("snowflake");
-        snowflake.textContent = ["❄", "❅", "❆"][Math.floor(Math.random() * 3)];
-        snowflake.style.left = `${Math.random() * 100}vw`;
-        snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+        snowflake.style.left = `${Math.random() * 100}vw`; // Случайная позиция по горизонтали
+        snowflake.style.animationDuration = `5s`; // Увеличиваем время анимации
+        snowflake.style.fontSize = `${Math.random() * 10 + 20}px`; // Разнообразие в размере снежинок
+        snowflake.style.opacity = Math.random() * 0.5 + 0.3; // Разная прозрачность
         document.body.appendChild(snowflake);
-        snowflake.addEventListener("animationend", () => snowflake.remove());
-      }, 100);
-    };
+
+        snowflakes.push(snowflake); // Добавляем в массив
+
+        // Удаляем снежинку после анимации
+        snowflake.addEventListener("animationend", () => {
+          snowflake.remove();
+        });
+      }, 50); // Интервал создания снежинок
+    }
+
+
 
     const makeButtonMove = (button) => {
       button.addEventListener("mouseover", () => {
@@ -174,7 +211,64 @@
       });
     };
 
-    [noButton, sickButton, examButton, pelmeniButton, holostyakButton].forEach(makeButtonMove);
+    [noButton, sickButton, examButton, busyButton, pelmeniButton, holostyakButton].forEach(makeButtonMove)
+    //
+    makeButtonMove(noButton);
+    makeButtonMove(sickButton);
+    makeButtonMove(examButton);
+
+    makeButtonMove(busyButton);
+    makeButtonMove(pelmeniButton);
+    pelmeniButton(holostyakButton);
+
+
+    noButton.addEventListener("click", () => {
+      inviteBox.classList.add("hidden");
+      alert("Жаль, но я понял.");
+    });
+
+    sickButton.addEventListener("click", () => {
+      inviteBox.classList.add("hidden");
+      alert("Выздоравливай");
+    });
+
+    examButton.addEventListener("click", () => {
+      inviteBox.classList.add("hidden");
+      alert("Удачи на экзаменах!");
+    });
+
+// 
+    busyButton.addEventListener("click", () => {
+      inviteBox.classList.add("hidden");
+      alert("До следушего раза!");
+    });
+
+    pelmeniButton.addEventListener("click", () => {
+      inviteBox.classList.add("hidden");
+      alert("Приятного аппетита!");
+    });
+
+    holostyakButton.addEventListener("click", () => {
+      inviteBox.classList.add("hidden");
+      alert("Приятного просмотра!");
+    });
+
+
+
+
+//
+    SvoyButton.addEventListener("click", () => {
+      inviteBox.classList.add("hidden");
+      formBox.classList.remove("hidden");
+      startHearts();
+      startSnowflakes();
+      const email = "kiril20112004@gmail.com";
+      const subject = "Прости, я не могу";
+      const body = "Я не могу и вот почему: ";
+      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    });
+ 
 
     yesButton.addEventListener("click", () => {
       inviteBox.classList.add("hidden");
@@ -183,18 +277,7 @@
       startSnowflakes();
     });
 
-    busyButton.addEventListener("okay", () =>
-    {
-     
-      const email = "kiril20112004@gmail.com";
-      const subject = "Я не могу";
-      const body = "Вот почему :" ;
-      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoLink;
-    });
-
-    sendButton.addEventListener("click", () =>
-    {
+    sendButton.addEventListener("click", () => {
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
 
@@ -209,10 +292,6 @@
       const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoLink;
     });
-
-    // talant code 
-   
-
   </script>
 </body>
 </html>
