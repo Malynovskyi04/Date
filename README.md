@@ -28,8 +28,8 @@
     }
 
     .container {
-      width: 350px;
-      height: 350px;
+      width: 550px;
+      height: 550px;
       text-align: center;
       padding: 30px;
       border: 3px solid #fff;
