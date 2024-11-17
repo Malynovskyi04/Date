@@ -257,17 +257,18 @@
 
 
 //
-    SvoyButton.addEventListener("click", () => {
-      inviteBox.classList.add("hidden");
-      formBox.classList.remove("hidden");
-      startHearts();
-      startSnowflakes();
-      const email = "kiril20112004@gmail.com";
-      const subject = "Прости, я не могу";
-      const body = "Я не могу и вот почему: ";
-      const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoLink;
-    });
+SvoyButton.addEventListener("click", () => {
+  inviteBox.classList.add("hidden");
+  formBox.classList.remove("hidden");
+  startHearts();
+  startSnowflakes();
+  const email = "kiril20112004@gmail.com";
+  const subject = "Прости, я не могу";
+  const body = "Я не могу и вот почему: ";
+  const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailtoLink;
+});
+
  
 
     yesButton.addEventListener("click", () => {
