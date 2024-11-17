@@ -107,7 +107,7 @@
     <button class="button" id="busyButton">Я занята</button>
     <button class="button" id="pelmeniButton">Кушаю пельмени</button>
     <button class="button" id="holostyakButton">Смотрю холостяка</button>
-    <button class="button" id="SvoyButton"></button>
+    <button class="button" id="SvoyButton">Свой вариант</button>
 
   </div>
 
